@@ -10,10 +10,9 @@ class user(models.Model):
     dborn = models.DateField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Дата рождения')
     email = models.EmailField(max_length=50,blank=True,verbose_name='Email')
     rate = models.IntegerField(default=0,verbose_name='Рейтинг')
-    class meta:
+    class Meta:
         verbose_name='Член клуба'
         verbose_name_plural='Члены клуба'
         ordering=['lastname']
     def __str__(self):
         return self.lastname
-        
