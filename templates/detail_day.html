@@ -1,0 +1,5 @@
+{%extends 'base.html'%}
+{%block page%}
+<a href="{%url 'home'%}">Главная</a>
+<h2>{{ detail_day.data|date:"d-m-Y" }}</h2>
+{%endblock%}

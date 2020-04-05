@@ -19,6 +19,7 @@ class user(models.Model):
         return self.lastname
 #модель летных дней
 class flightday(models.Model):
+#    chlen = models.ForeignKey(user,on_delete=models.SET_NULL)
     data = models.DateField(auto_now=False,unique=True,auto_now_add=False,blank=True,verbose_name='Дата полетов')
     timestart = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Время начала полетов')
     timefinish = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Время окончания полетов')
@@ -31,5 +32,19 @@ class flightday(models.Model):
         ordering=['data']
     def __str__(self):
         datetimeObj=self.data
+        dateStr=datetimeObj.strftime('%d-%b-%Y')
+        return dateStr
+# непосредственно записи на полеты
+class zapisi(models.Model):
+    chlen = models.ForeignKey(user,on_delete=models.PROTECT)
+    data_poleta = models.ForeignKey(flightday,on_delete=models.PROTECT)
+    data_zapisi = models.DateField(auto_now=False,unique=True,auto_now_add=True,blank=True,verbose_name='Дата записи')
+    coment = models.TextField(blank=True,verbose_name='Коментарий')
+    class Meta:
+        verbose_name='Запись на полеты'
+        verbose_name_plural='Записи на полеты'
+        ordering=['data_poleta']
+    def __str__(self):
+        datetimeObj=self.data_poleta.data
         dateStr=datetimeObj.strftime('%d-%b-%Y')
         return dateStr
