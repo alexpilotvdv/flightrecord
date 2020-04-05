@@ -1,6 +1,7 @@
 from django.db import models
+from datetime import datetime
 
-# Create your models here.
+# модель членов клуба.
 class user(models.Model):
     foto = models.ImageField('Фото',upload_to='users/foto',default='',blank=True)
     nik = models.CharField(max_length=15,verbose_name='Ник')
@@ -16,3 +17,19 @@ class user(models.Model):
         ordering=['lastname']
     def __str__(self):
         return self.lastname
+#модель летных дней
+class flightday(models.Model):
+    data = models.DateField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Дата полетов')
+    timestart = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Время начала полетов')
+    timefinish = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Время окончания полетов')
+    nalet = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Максимальный налет')
+    info = models.TextField(blank=True,verbose_name='Дополнительная информация')
+    regopen = models.BooleanField(default=False,verbose_name='Регистрация открыта')
+    class Meta:
+        verbose_name='День полетов'
+        verbose_name_plural='Дни полетов'
+        ordering=['data']
+    def __str__(self):
+        datetimeObj=self.data
+        dateStr=datetimeObj.strftime('%d-%b-%Y')
+        return dateStr
