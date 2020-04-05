@@ -38,7 +38,7 @@ class flightday(models.Model):
 class zapisi(models.Model):
     chlen = models.ForeignKey(user,on_delete=models.PROTECT)
     data_poleta = models.ForeignKey(flightday,on_delete=models.PROTECT)
-    data_zapisi = models.DateField(auto_now=False,unique=True,auto_now_add=True,blank=True,verbose_name='Дата записи')
+    data_zapisi = models.DateField(auto_now=True,unique=False,blank=True,verbose_name='Дата записи')
     coment = models.TextField(blank=True,verbose_name='Коментарий')
     class Meta:
         verbose_name='Запись на полеты'
