@@ -8,7 +8,8 @@
 
 </head>
 <body>
-  <h2>{{insert_me}}</h2>
-
+  {% for day in flightdays %}
+  <h2>{{ day.data|date:"d-m-Y" }}</h2>
+  {% endfor %}
 </body>
 </html>

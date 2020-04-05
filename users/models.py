@@ -19,7 +19,7 @@ class user(models.Model):
         return self.lastname
 #модель летных дней
 class flightday(models.Model):
-    data = models.DateField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Дата полетов')
+    data = models.DateField(auto_now=False,unique=True,auto_now_add=False,blank=True,verbose_name='Дата полетов')
     timestart = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Время начала полетов')
     timefinish = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Время окончания полетов')
     nalet = models.TimeField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Максимальный налет')
