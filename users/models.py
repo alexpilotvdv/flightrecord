@@ -1,8 +1,11 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
+
 
 # модель членов клуба.
 class user(models.Model):
+    user_reg = models.OneToOneField(User,on_delete=models.CASCADE)
     foto = models.ImageField('Фото',upload_to='users/foto',default='',blank=True)
     nik = models.CharField(max_length=15,verbose_name='Ник')
     firstname = models.CharField(max_length=15,verbose_name='Имя')
@@ -48,3 +51,12 @@ class zapisi(models.Model):
         datetimeObj=self.data_poleta.data
         dateStr=datetimeObj.strftime('%d-%b-%Y')
         return dateStr
+# модель связи членов клуба с пользователями. не обязательно
+class connect_user(models.Model):
+    user_reg = models.OneToOneField(User,on_delete=models.CASCADE,verbose_name='зарегистрированный пользователь')
+    user_base = models.OneToOneField(user,on_delete=models.CASCADE,verbose_name='профиль')
+    class Meta:
+        verbose_name='связь с профилем'
+        verbose_name_plural='связи с профилем'
+    def __str__(self):
+        return self.user_base.nik
