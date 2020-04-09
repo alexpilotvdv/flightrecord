@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {%block page%}
-  {% for day in flightdays %}
-  <h2><a href="{% url 'day_detail' day_id=day.id %}">{{ day.data|date:"d-m-Y" }}</a></h2>
-  {% endfor %}
+{% if user.is_authenticated %}
+<p><a href="{% url 'logout' %}">Выйти</a></p>
+{% else %}
+<p><a href="{% url 'login' %}">Вход</a></p>
+<p><a href="{% url 'registracia' %}">Зарегистрироваться</a></p>
+{% endif %}
 {%endblock%}
