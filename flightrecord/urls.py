@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/',views.RegisterFormView.as_view(),name='registracia'),
     path('logout/',views.LogoutView.as_view(),name='logout'),
-    path('accounts/',include('django.contrib.auth.urls')),
+    path('login/',views.LoginFormView.as_view(),name='login'),
     path('',views.main_page,name='home'),
     #path('<day_id>/',views.day_detail,name='day_detail'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

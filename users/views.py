@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from users.models import user,flightday
 #для регистрации пользователя
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.views.generic.edit import FormView
 from django.views.generic.base import View
 
@@ -26,7 +29,15 @@ class RegisterFormView(FormView):
         return super(RegisterFormView,self).form_valid(form)
 
 # аутентификация
-        
+class LoginFormView(FormView):
+    form_class=AuthenticationForm
+    template_name="users/login.html"
+    success_url="/"
+    def form_valid(self,form):
+        self.user=form.get_user()
+        login(self.request,self.user)
+        return super(LoginFormView,self).form_valid(form)
+
 
 #выход пользователя
 class LogoutView(View):
