@@ -69,8 +69,15 @@ class ProfileFormView(FormView):
     form_class = FillProfile
     success_url="/"
     template_name="users/profile.html"
+    #чтобы определить пользователя
+    def post(self, request, *args, **kwargs):
+        self.userid=request.user
+        return super(ProfileFormView,self).post(self, request, *args, **kwargs)
+
+
     def form_valid(self,form):
-        form.save()
+        #print(self.curuser)
+        form.save(userparam=self.userid)
         return super(ProfileFormView,self).form_valid(form)
 
     def form_invalid(self,form):

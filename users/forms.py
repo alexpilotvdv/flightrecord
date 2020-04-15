@@ -32,6 +32,21 @@ class UserCreateForm(UserCreationForm):
         return cleaned_data
 
 class FillProfile(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(FillProfile,self).__init__(*args,**kwargs)
+
     class Meta:
         model = user
         fields = ['foto','nik','firstname','lastname','pfone','dborn','email']
+
+#переопределяем сохранение. добавляем в него параметр user_reg
+    def save(self,userparam, commit=True):
+        print(userparam)
+        prof=super(FillProfile,self).save(commit=False)
+        prof.user_reg=userparam
+        if commit:
+            prof.save()
+        return prof
+
+    def clean(self):
+        cleaned_data=super(FillProfile,self).clean()

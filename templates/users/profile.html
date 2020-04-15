@@ -2,7 +2,7 @@
 {%block page%}
 {% if user.is_authenticated %}
 <a href="{%url 'main'%}">Главная</a>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
 {% for field in form %}
 <label for="">{{field.label}}</label>
