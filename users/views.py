@@ -9,7 +9,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.views.generic.edit import FormView
 from django.views.generic.base import View
-from .forms import UserCreateForm
+from .forms import UserCreateForm, FillProfile
 
 # Create your views here.
 def users(request):
@@ -64,3 +64,14 @@ class LogoutView(View):
     def get(self,request):
         logout(request)
         return HttpResponseRedirect("/")
+
+class ProfileFormView(FormView):
+    form_class = FillProfile
+    success_url="/"
+    template_name="users/profile.html"
+    def form_valid(self,form):
+        form.save()
+        return super(ProfileFormView,self).form_valid(form)
+
+    def form_invalid(self,form):
+        return super(ProfileFormView,self).form_invalid(form)

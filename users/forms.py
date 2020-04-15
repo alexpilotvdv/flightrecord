@@ -3,6 +3,7 @@ from django import forms
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import user
 
 class UserCreateForm(UserCreationForm):
     email=forms.EmailField(required=True)
@@ -29,3 +30,8 @@ class UserCreateForm(UserCreationForm):
             self._errors["prov"]=self.error_class([msg])
             #del cleaned_data["prov"]
         return cleaned_data
+
+class FillProfile(ModelForm):
+    class Meta:
+        model = user
+        fields = ['foto','nik','firstname','lastname','pfone','dborn','email']

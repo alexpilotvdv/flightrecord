@@ -2,6 +2,7 @@
 {%block page%}
 {% if user.is_authenticated %}
 <p><a href="{% url 'logout' %}">Выйти</a></p>
+<p><a href="{% url 'profile' %}">Профиль</a></p>
 {% else %}
 <p><a href="{% url 'login' %}">Вход</a></p>
 <p><a href="{% url 'registracia' %}">Зарегистрироваться</a></p>
