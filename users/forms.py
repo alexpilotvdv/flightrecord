@@ -18,6 +18,7 @@ class UserCreateForm(UserCreationForm):
     def save(self,commit=True):
         user=super(UserCreateForm,self).save(commit=False)
         user.email=self.cleaned_data["email"]
+
         if commit:
             user.save()
         return user
@@ -41,7 +42,6 @@ class FillProfile(ModelForm):
 
 #переопределяем сохранение. добавляем в него параметр user_reg
     def save(self,userparam, commit=True):
-        print(userparam)
         prof=super(FillProfile,self).save(commit=False)
         prof.user_reg=userparam
         if commit:
@@ -50,3 +50,6 @@ class FillProfile(ModelForm):
 
     def clean(self):
         cleaned_data=super(FillProfile,self).clean()
+
+#---------------------------------------------------
+#user.objects.filter(user_reg=xxx).exists()

@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%block page%}
+{% if user.is_authenticated %}
+<a href="{%url 'main'%}">Главная</a>
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{% for field in form %}
+<label for="">{{field.label}}</label>
+<div>{{field}}</div>
+{% if field.errors %}
+<p>{{field.errors}}</p>
+{% endif %}
+{% endfor %}
+
+<button type="submit">Изменить</button>
+</form>
+{% else %}
+<p><a href="{% url 'login' %}">Вход</a></p>
+<p><a href="{% url 'registracia' %}">Зарегистрироваться</a></p>
+{% endif %}
+{%endblock%}

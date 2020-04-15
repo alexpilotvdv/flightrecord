@@ -11,7 +11,7 @@ class user(models.Model):
     firstname = models.CharField(max_length=15,verbose_name='Имя')
     lastname = models.CharField(max_length=15,verbose_name='Фамилия')
     pfone = models.CharField(max_length=12,blank=True,verbose_name='Телефон')
-    dborn = models.DateField(auto_now=False,auto_now_add=False,blank=True,verbose_name='Дата рождения')
+    dborn = models.DateField(null=True,auto_now=False,auto_now_add=False,blank=True,verbose_name='Дата рождения')
     email = models.EmailField(max_length=50,blank=True,verbose_name='Email')
     rate = models.IntegerField(default=0,verbose_name='Рейтинг')
     class Meta:

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from users.models import user,flightday
 from django.views.generic import TemplateView
@@ -43,6 +43,13 @@ class MainView(TemplateView):
     template_name="index.html"
     def get(self,request):
         if request.user.is_authenticated:
+            if not user.objects.filter(user_reg=request.user).exists():
+                #если нет записи в профиле
+                #создаем новую
+                profil=user()
+                profil.user_reg=request.user
+                profil.save()
+
             return render(request,self.template_name,{})
         else:
             return render(request,self.template_name,{})
@@ -64,6 +71,29 @@ class LogoutView(View):
     def get(self,request):
         logout(request)
         return HttpResponseRedirect("/")
+
+class ProfileUpdate(View):
+    def get(self,request):
+        if request.user.is_authenticated:
+            if not user.objects.filter(user_reg=request.user).exists():
+                #если нет записи в профиле
+                #создаем новую
+                profil=user()
+                profil.user_reg=request.user
+                profil.save()
+            userobj=user.objects.get(user_reg=request.user)
+            profilform=FillProfile(instance=userobj)
+            return render(request,'users/updateprofil.html',context={'form':profilform})
+    def post(self,request):
+        if request.user.is_authenticated:
+            userobj=user.objects.get(user_reg=request.user)
+            profilform=FillProfile(request.POST,request.FILES,instance=userobj)
+            if profilform.is_valid():
+                new_userobj=profilform.save(userparam=request.user)
+                return redirect('main')
+            return render(request,'users/updateprofil.html',context={'form':profilform})
+
+
 
 class ProfileFormView(FormView):
     form_class = FillProfile

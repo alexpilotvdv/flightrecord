@@ -27,6 +27,7 @@ urlpatterns = [
     path('logout/',views.LogoutView.as_view(),name='logout'),
     path('login/',views.LoginFormView.as_view(),name='login'),
     path('profile/',views.ProfileFormView.as_view(),name='profile'),
+    path('editprofile/',views.ProfileUpdate.as_view(),name='editprofile'),
     path('',views.MainView.as_view(),name='main'),
     #path('',views.main_page,name='home'),
     #path('<day_id>/',views.day_detail,name='day_detail'),
